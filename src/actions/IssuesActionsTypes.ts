@@ -5,16 +5,18 @@ export const ISSUES_FILTERED_LOADING = 'LOAD_DATA_FILTERED_REQUEST';
 export const ISSUES_FILTERED_SUCCESS = 'LOAD_DATA_FILTERED_SUCCESS';
 export const ISSUES_FILTERED_FAIL = 'LOAD_DATA_FILTERED_FAIL';
 
-type IssueLabel = {
+type IssueLabelT = {
   id: number;
   name: string;
 };
 
-export type Issue = {
+export type IssueT = {
   title: string;
   id: number;
+  number: number;
   body: string;
-  labels: IssueLabel[];
+  created_at: Date;
+  labels: IssueLabelT[];
 };
 
 export interface IssuesLoading {
@@ -23,7 +25,7 @@ export interface IssuesLoading {
 export interface IssuesSuccess {
   total_count: number;
   type: typeof ISSUES_SUCCESS;
-  payload: Issue[];
+  payload: IssueT[];
 }
 export interface IssuesFail {
   type: typeof ISSUES_FAIL;
@@ -34,7 +36,7 @@ export interface IssuesFilteredLoading {
 }
 export interface IssuesFilteredSuccess {
   type: typeof ISSUES_FILTERED_SUCCESS;
-  payload: Issue[];
+  payload: IssueT[];
 }
 export interface IssuesFilteredFail {
   type: typeof ISSUES_FILTERED_FAIL;

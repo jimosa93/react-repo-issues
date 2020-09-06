@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Issue as IssueType } from '../actions/IssuesActionsTypes';
+import { IssueT } from '../actions/IssuesActionsTypes';
 import { Card, Button, Collapse, Badge } from 'react-bootstrap';
 import ReactMarkdown from 'react-markdown';
 
 interface IssueProps {
-  issue: IssueType;
+  issue: IssueT;
 }
 
 const Issue: React.FC<IssueProps> = ({ issue }) => {
@@ -14,6 +14,14 @@ const Issue: React.FC<IssueProps> = ({ issue }) => {
     <Card className="mb-3">
       <Card.Body>
         <Card.Title>{issue.title} - </Card.Title>
+        <Card.Subtitle className="text-muted mb-2">
+          #{issue.number} opened on{' '}
+          {new Date(issue.created_at).toLocaleDateString(undefined, {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          })}
+        </Card.Subtitle>
         <Card.Text>
           {issue.labels.map(label => (
             <Badge key={label.id} variant="secondary" className="mr-1">

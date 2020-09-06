@@ -2,12 +2,12 @@ import React from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Issue as IssueType } from '../actions/IssuesActionsTypes';
+import { IssueT } from '../actions/IssuesActionsTypes';
 import TextField from '@material-ui/core/TextField';
 
 interface SearchProps {
   issueFilterSearch: string;
-  issuesFiltered: IssueType[];
+  issuesFiltered: IssueT[];
   loadingFiltered: boolean;
   setIssueFilterSearch: React.Dispatch<React.SetStateAction<string>>;
   setIssueSearch: React.Dispatch<React.SetStateAction<string>>;
@@ -27,7 +27,7 @@ const Search: React.FC<SearchProps> = ({
   errorFiltered
 }) => {
   return (
-    <Form className="mb-4">
+    <Form className="mb-4" onSubmit={e => e.preventDefault()}>
       <Form.Row className="align-items-end">
         <Autocomplete
           freeSolo

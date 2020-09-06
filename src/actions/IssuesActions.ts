@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
 import {
-  // Issue,
   IssuesDispatchTypes,
   ISSUES_FAIL,
   ISSUES_LOADING,
@@ -11,10 +10,9 @@ import {
   ISSUES_FILTERED_FAIL
 } from './IssuesActionsTypes';
 
-const BASE_URL =
-  'https://cors-anywhere.herokuapp.com/https://api.github.com/search/issues';
+const BASE_URL = 'https://api.github.com/search/issues';
 
-export const GetIssues = (search: string, page: number = 1) => async (
+export const getIssues = (search: string, page: number = 1) => async (
   dispatch: Dispatch<IssuesDispatchTypes>
 ) => {
   try {
@@ -22,7 +20,7 @@ export const GetIssues = (search: string, page: number = 1) => async (
       type: ISSUES_LOADING
     });
     const { data } = await axios.get(
-      `${BASE_URL}?q=state:open+repo:facebook/react+${search}+in:title&sort=created&order=asc&per_page=20&page=${page}`
+      `${BASE_URL}?q=state:open+repo:facebook/react+${search}+in:title&sort=created&order=desc&per_page=20&page=${page}`
     );
     dispatch({
       type: ISSUES_SUCCESS,
@@ -34,7 +32,7 @@ export const GetIssues = (search: string, page: number = 1) => async (
   }
 };
 
-export const GetFilteredIssues = (search: string) => async (
+export const getFilteredIssues = (search: string) => async (
   dispatch: Dispatch<IssuesDispatchTypes>
 ) => {
   try {
@@ -42,7 +40,7 @@ export const GetFilteredIssues = (search: string) => async (
       type: ISSUES_FILTERED_LOADING
     });
     const { data } = await axios.get(
-      `${BASE_URL}?q=state:open+repo:facebook/react+${search}+in:title&sort=created&order=asc&per_page=50`
+      `${BASE_URL}?q=state:open+repo:facebook/react+${search}+in:title&sort=created&order=desc&per_page=50`
     );
     dispatch({ type: ISSUES_FILTERED_SUCCESS, payload: data.items });
   } catch (error) {

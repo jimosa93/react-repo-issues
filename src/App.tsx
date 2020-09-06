@@ -3,9 +3,9 @@ import './App.css';
 import { Container, Alert, Row, Col } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootStore } from './store';
-import { GetIssues, GetFilteredIssues } from './actions/IssuesActions';
+import { getIssues, getFilteredIssues } from './actions/IssuesActions';
 import Issue from './components/Issue';
-import { Issue as IssueType } from './actions/IssuesActionsTypes';
+import { IssueT } from './actions/IssuesActionsTypes';
 import Search from './components/Search';
 
 import Pagination from '@material-ui/lab/Pagination';
@@ -23,14 +23,14 @@ const App: React.FC = () => {
   const pages = Math.ceil(total_count / 20);
 
   useEffect(() => {
-    dispatch(GetIssues(''));
-    dispatch(GetFilteredIssues(''));
+    dispatch(getIssues(''));
+    dispatch(getFilteredIssues(''));
   }, [dispatch]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (issueFilterSearch.length > 2) {
-        dispatch(GetFilteredIssues(issueFilterSearch));
+        dispatch(getFilteredIssues(issueFilterSearch));
       }
     }, 1000);
     return () => {
@@ -39,20 +39,20 @@ const App: React.FC = () => {
   }, [issueFilterSearch, dispatch]);
 
   const handleSubmitSearch = (searchValue: string) => {
-    dispatch(GetIssues(searchValue));
+    dispatch(getIssues(searchValue));
   };
 
   const handleSubmitButton = () => {
-    dispatch(GetIssues(issueSearch));
+    dispatch(getIssues(issueSearch));
   };
 
   const handlePaginationChange = (event: Object, page: number) => {
-    dispatch(GetIssues(issueSearch, page));
+    dispatch(getIssues(issueSearch, page));
   };
 
   return (
     <Container className="my-4">
-      <h1 className="mb-4">Issues for React’s repo</h1>
+      <h1 className="mb-4">Issues Finder for React’s repo</h1>
       <Search
         issueFilterSearch={issueFilterSearch}
         issuesFiltered={issuesFiltered}
@@ -77,11 +77,13 @@ const App: React.FC = () => {
       )}
 
       {loading && <Alert variant="info">Loading...</Alert>}
-      {error && <Alert variant="danger">Error. Try Refreshing.</Alert>}
+      {error && (
+        <Alert variant="danger">Error fetching issues. Try Refreshing.</Alert>
+      )}
       {issues.length === 0 && !error && !loading && (
         <Alert variant="secondary">No issues found.</Alert>
       )}
-      {issues.map((issue: IssueType) => (
+      {issues.map((issue: IssueT) => (
         <Issue key={issue.id} issue={issue} />
       ))}
       {pages > 1 && (

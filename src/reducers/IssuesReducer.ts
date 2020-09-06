@@ -1,5 +1,5 @@
 import {
-  Issue,
+  IssueT,
   IssuesDispatchTypes,
   ISSUES_LOADING,
   ISSUES_SUCCESS,
@@ -11,10 +11,10 @@ import {
 
 interface DefaultStateI {
   loading: boolean;
-  issues: Issue[];
+  issues: IssueT[];
   error?: string;
   loadingFiltered: boolean;
-  issuesFiltered: Issue[];
+  issuesFiltered: IssueT[];
   errorFiltered?: string;
   total_count: number;
 }
