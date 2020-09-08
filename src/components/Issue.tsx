@@ -11,7 +11,7 @@ const Issue: React.FC<IssueProps> = ({ issue }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <Card className="mb-3">
+    <Card className="mb-3" data-testid="card-issue">
       <Card.Body>
         <Card.Title>{issue.title} - </Card.Title>
         <Card.Subtitle className="text-muted mb-2">
@@ -22,22 +22,25 @@ const Issue: React.FC<IssueProps> = ({ issue }) => {
             year: 'numeric'
           })}
         </Card.Subtitle>
-        <Card.Text>
+        <Card.Text data-testid="labels-wrapper">
           {issue.labels.map(label => (
-            <Badge key={label.id} variant="secondary" className="mr-1">
-              {label.name}
-            </Badge>
+            <React.Fragment key={label.id}>
+              <Badge variant="secondary" className="mr-1">
+                {label.name}
+              </Badge>
+            </React.Fragment>
           ))}
         </Card.Text>
         <Card.Text>
           <Button
+            data-testid="button-details"
             onClick={() => setOpen(prevOpen => !prevOpen)}
             variant="primary"
           >
             {open ? 'Hide Details' : 'View Details'}
           </Button>
         </Card.Text>
-        <Collapse in={open}>
+        <Collapse in={open} data-testid="collapse">
           <div className="mt-4">
             <ReactMarkdown source={issue.body} escapeHtml={false} />
           </div>

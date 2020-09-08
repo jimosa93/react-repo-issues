@@ -84,7 +84,7 @@ const App: React.FC = () => {
         <Alert variant="secondary">No issues found.</Alert>
       )}
       {issues.map((issue: IssueT) => (
-        <Issue key={issue.id} issue={issue} />
+        <Issue data-testid="issue-item" key={issue.id} issue={issue} />
       ))}
       {pages > 1 && (
         <Row className="justify-content-md-center my-3">

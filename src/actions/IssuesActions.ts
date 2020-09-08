@@ -19,16 +19,19 @@ export const getIssues = (search: string, page: number = 1) => async (
     dispatch({
       type: ISSUES_LOADING
     });
-    const { data } = await axios.get(
+    //dispatch();
+    const res = await axios.get(
       `${BASE_URL}?q=state:open+repo:facebook/react+${search}+in:title&sort=created&order=desc&per_page=20&page=${page}`
     );
     dispatch({
       type: ISSUES_SUCCESS,
-      payload: data.items,
-      total_count: data.total_count
+      payload: res.data.items,
+      total_count: res.data.total_count
     });
+    return res;
   } catch (error) {
     dispatch({ type: ISSUES_FAIL, payload: error.message });
+    return error;
   }
 };
 
@@ -39,11 +42,13 @@ export const getFilteredIssues = (search: string) => async (
     dispatch({
       type: ISSUES_FILTERED_LOADING
     });
-    const { data } = await axios.get(
+    const res = await axios.get(
       `${BASE_URL}?q=state:open+repo:facebook/react+${search}+in:title&sort=created&order=desc&per_page=50`
     );
-    dispatch({ type: ISSUES_FILTERED_SUCCESS, payload: data.items });
+    dispatch({ type: ISSUES_FILTERED_SUCCESS, payload: res.data.items });
+    return res;
   } catch (error) {
     dispatch({ type: ISSUES_FILTERED_FAIL, payload: error.message });
+    return error;
   }
 };

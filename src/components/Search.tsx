@@ -27,9 +27,14 @@ const Search: React.FC<SearchProps> = ({
   errorFiltered
 }) => {
   return (
-    <Form className="mb-4" onSubmit={e => e.preventDefault()}>
+    <Form
+      className="mb-4"
+      data-testid="form-autocomplete"
+      onSubmit={e => e.preventDefault()}
+    >
       <Form.Row className="align-items-end">
         <Autocomplete
+          data-testid="search-autocomplete"
           freeSolo
           disableClearable
           inputValue={issueFilterSearch}

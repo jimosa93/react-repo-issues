@@ -42,6 +42,9 @@ export interface IssuesFilteredFail {
   type: typeof ISSUES_FILTERED_FAIL;
   payload: string;
 }
+export interface IssuesDefault {
+  type: 'Default';
+}
 
 export type IssuesDispatchTypes =
   | IssuesLoading
@@ -49,4 +52,5 @@ export type IssuesDispatchTypes =
   | IssuesFail
   | IssuesFilteredLoading
   | IssuesFilteredSuccess
-  | IssuesFilteredFail;
+  | IssuesFilteredFail
+  | IssuesDefault;
