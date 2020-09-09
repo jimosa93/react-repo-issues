@@ -42,6 +42,12 @@ describe('Search button', () => {
     fireEvent.keyDown(searchAutocomplete, { key: 'Enter', keyCode: 13 });
     expect(requestSubmitSearch).toHaveBeenCalled();
   });
+
+  it('should render loading autocomplete', () => {
+    searchProps.loadingFiltered = true;
+    render(<Search {...searchProps} />);
+  });
+
   it('trigger request handleSubmitButton', () => {
     const { getByTestId } = render(<Search {...searchProps} />);
     const formAutocomplete = getByTestId('form-autocomplete');
